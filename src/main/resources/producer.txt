@@ -1,0 +1,4 @@
+producer:
+kafak的三种发送方式
+多线程下producer是线性安全的
+

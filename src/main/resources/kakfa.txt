@@ -1,0 +1,7 @@
+# kafak的流程图
+producer---------------->kafa------------>consumer
+                          |
+                          |
+                          |
+                          |
+                      zookeeper(保存的元数据，topic,offset,partition等相关的信息)
