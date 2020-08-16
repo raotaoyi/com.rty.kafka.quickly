@@ -15,6 +15,7 @@ import java.util.Properties;
 public class ConfigKafkaProducer {
 
     public static void main(String[] args) {
+        //TODO 生产者三个属性必须制定(broker地址清单,key和value的序列化器)
         Properties properties = new Properties();
         properties.put("bootstrap.servers", "127.0.0.1:9092");
         properties.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
