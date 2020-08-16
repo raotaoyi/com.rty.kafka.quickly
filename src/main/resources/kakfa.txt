@@ -1,5 +1,5 @@
 # kafak的流程图
-producer---------------->kafa------------>consumer
+producer---------------->kafka------------>consumer
                           |
                           |
                           |

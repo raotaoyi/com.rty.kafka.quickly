@@ -1,4 +1,4 @@
-package com.rty.kafka.quickly.consumerConfig;
+package com.rty.kafka.quickly.producerConfig;
 
 import com.rty.kafka.quickly.config.BusiConst;
 import org.apache.kafka.clients.producer.KafkaProducer;

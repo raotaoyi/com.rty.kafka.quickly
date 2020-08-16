@@ -23,7 +23,8 @@ public class KafkaAsynProducer {
                         e.printStackTrace();
                     }
                     if (null != recordMetadata) {
-                        System.out.println("offet:" + recordMetadata.offset() + "-" + "partition:" + recordMetadata.partition() + "-" + "topic:" + recordMetadata.topic());
+                        System.out.println("offet:" + recordMetadata.offset() + "-" + "partition:" +
+                                recordMetadata.partition() + "-" + "topic:" + recordMetadata.topic());
                     }
                 }
             });
