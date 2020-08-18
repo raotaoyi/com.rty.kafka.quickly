@@ -1,3 +1,9 @@
+#kafka的概念
+broker和集群
+保留消息(多副本),副本的选举机制,
+
+
+
 # kafak的流程图
 producer---------------->kafka------------>consumer
                           |
@@ -52,6 +58,8 @@ producer---------------->kafka------------>consumer
                            |            |
                           <-----------Kafka Broker
 
+
+#kafka的消费者
 
 
 
