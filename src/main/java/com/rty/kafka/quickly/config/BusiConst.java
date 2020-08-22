@@ -13,6 +13,8 @@ public class BusiConst {
 
     public static final int CONCURRENT_PATITIONS_COUNT = 2;
 
-    public static final String CONSUMER_COMMIT_TOPIC="";
+    public static final String CONSUMER_COMMIT_TOPIC = "";
+
+    public static final String REBALANCE_TOPIC = "";
 
 }
