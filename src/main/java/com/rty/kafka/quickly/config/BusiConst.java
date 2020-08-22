@@ -9,7 +9,7 @@ public class BusiConst {
      */
     public static final String HELLO_TOPIC = "hello-topic";
 
-    public static final String CONCURRENT_USER_INFO_TOPIC = "concurrent-teCONCURRENT_USER_INFO_TOPICst";
+    public static final String CONCURRENT_USER_INFO_TOPIC = "concurrent-test-CONCURRENT_USER_INFO_TOPIC";
 
     public static final int CONCURRENT_PATITIONS_COUNT = 2;
 

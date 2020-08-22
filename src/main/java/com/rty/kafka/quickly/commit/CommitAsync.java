@@ -1,11 +1,13 @@
 package com.rty.kafka.quickly.commit;
 
+import com.rty.kafka.quickly.config.BusiConst;
 import com.rty.kafka.quickly.config.KafkaConst;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import javax.sound.midi.Soundbank;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
@@ -21,6 +23,7 @@ public class CommitAsync {
         properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG,false);
         KafkaConsumer<String,String> consumer=new KafkaConsumer<String, String>(properties);
         try{
+            consumer.subscribe(Collections.singletonList(BusiConst.CONCURRENT_USER_INFO_TOPIC));
             while(true) {
                 ConsumerRecords<String, String> records = consumer.poll(500);
                 for (ConsumerRecord<String, String> record : records) {
