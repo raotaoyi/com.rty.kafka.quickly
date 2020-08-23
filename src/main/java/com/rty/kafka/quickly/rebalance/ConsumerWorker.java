@@ -2,9 +2,7 @@ package com.rty.kafka.quickly.rebalance;
 
 import com.rty.kafka.quickly.config.BusiConst;
 import com.rty.kafka.quickly.config.KafkaConst;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
@@ -35,11 +33,47 @@ public class ConsumerWorker implements Runnable {
         this.consumer = new KafkaConsumer<String, String>(properties);
         this.currOffsets = new HashMap<TopicPartition, OffsetAndMetadata>();
         //TODO 消费者订阅是加入再均衡监听器(HandlerRebalance）
-        consumer.subscribe(Collections.singletonList(BusiConst.REBALANCE_TOPIC), new HandlerRebalance());
+        consumer.subscribe(Collections.singletonList(BusiConst.REBALANCE_TOPIC),
+                new HandlerRebalance(this.currOffsets,this.consumer));
     }
 
     @Override
     public void run() {
+        final String id=Thread.currentThread().getId()+"";
+        int count=0;
+        TopicPartition topicPartition=null;
+        long offSet=0;
+        try{
+            while(true){
+                ConsumerRecords<String,String> records=consumer.poll(500);
+                //TODO 业务处理
+                for(ConsumerRecord<String,String> record:records){
+                    System.out.println(id + "|" + String.format("主题:%s,分区:%d,偏移量:%d" +
+                                    "key:%s,value:%s", record.topic(), record.partition(), record.offset(),
+                            record.key(), record.value()));
+                    topicPartition=new TopicPartition(record.topic(),record.partition());
+                    offSet=record.offset()+1;
+                    //TODO 消費者消費時把偏移量提交到統一的hashmap中
+                    currOffsets.put(topicPartition,new OffsetAndMetadata(offSet,"no"));
+                    count++;
+                    //執行業務的sql
+                }
+                //TODO 提交事務
+                //提交業務數和偏移量入庫 tr.commit
+                //TODO 如果stop的參數為true，這個消費者消費到第5個時自動關閉
+                if(isStop && count>=5){
+                    System.out.println(id+"-将关闭，当前的偏移量为:"+currOffsets);
+                    consumer.commitSync();
+                    break;
+                }
+                consumer.commitSync();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            consumer.close();
+        }
 
     }
 }
