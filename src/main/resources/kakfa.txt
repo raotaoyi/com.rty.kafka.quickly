@@ -3,6 +3,12 @@ broker和集群
 保留消息(多副本),副本的选举机制,
 
 
+#kafka的可靠性
+broker可靠性
+producer可靠性
+comsumer可靠性
+
+
 
 # kafak的流程图
 producer---------------->kafka------------>consumer
